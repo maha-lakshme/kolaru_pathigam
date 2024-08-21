@@ -31,66 +31,69 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-    resizeToAvoidBottomInset: true,
         //Bottom Navigation
-        bottomNavigationBar: Container(
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: GNav(
-              tabActiveBorder: Border.all(color: Colors.black),
-              gap: 10,
-              color: Colors.grey[600],
-              activeColor: Colors.black,
-              rippleColor: Colors.grey[300]!,
-              hoverColor: Colors.grey[100]!,
-              iconSize: 20,
-              textStyle: TextStyle(fontSize: 16, color: Colors.black),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14.5),
-              duration: Duration(milliseconds: 800),
-              tabs: [
-                GButton(
+        bottomNavigationBar: 
+        SafeArea(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+           // margin: EdgeInsets.only(left: 10,right: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(top: 8),
+              child: GNav(
+                tabActiveBorder: Border.all(color: Colors.black),
+                gap: 10,
+                color: Colors.grey[600],
+                activeColor: Colors.black,
+                rippleColor: Colors.grey[300]!,
+                hoverColor: Colors.grey[100]!,
+                iconSize: 20,
+                textStyle: TextStyle(fontSize: 16, color: Colors.black),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 14.5),
+                duration: Duration(milliseconds: 800),
+                tabs: [
+                  GButton(
+                      leading: SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: Image.asset(
+                            "lib/images/shiva5.png",
+                          )),
+                      icon: Icons.home,
+                      text: " பாடல்",
+                      textStyle: GoogleFonts.mukta(fontSize: 15)),
+                  GButton(
                     leading: SizedBox(
-                        width: 20,
-                        height: 20,
+                        width: 25,
+                        height: 25,
                         child: Image.asset(
-                          "lib/images/shiva5.png",
+                          "lib/images/thirsul2.png",
                         )),
-                    icon: Icons.home,
-                    text: " பாடல்",
-                    textStyle: GoogleFonts.mukta(fontSize: 15)),
-                GButton(
-                  leading: SizedBox(
-                      width: 25,
-                      height: 25,
-                      child: Image.asset(
-                        "lib/images/thirsul2.png",
-                      )),
-                  icon: Icons.ac_unit_sharp,
-                  text: "வரலாறு",
-                  textStyle: GoogleFonts.muktaMalar(fontSize: 15),
-                ),
-                GButton(
-                    leading: SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: Image.asset(
-                          "lib/images/nandi.png",
-                        )),
-                    icon: Icons.abc,
-                    text: 'சிறப்பு',
-                    textStyle: GoogleFonts.muktaMalar(fontSize: 15)),
-              ],
-              selectedIndex: _page,
-              onTabChange: (index) {
-                setState(() {
-                  print("Clicked index----" + index.toString());
-                  _page = index;
-                });
-              },
+                    icon: Icons.ac_unit_sharp,
+                    text: "வரலாறு",
+                    textStyle: GoogleFonts.muktaMalar(fontSize: 15),
+                  ),
+                  GButton(
+                      leading: SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            "lib/images/nandi.png",
+                          )),
+                      icon: Icons.abc,
+                      text: 'சிறப்பு',
+                      textStyle: GoogleFonts.muktaMalar(fontSize: 15)),
+                ],
+                selectedIndex: _page,
+                onTabChange: (index) {
+                  setState(() {
+                    print("Clicked index----" + index.toString());
+                    _page = index;
+                  });
+                },
+              ),
             ),
           ),
         ),
