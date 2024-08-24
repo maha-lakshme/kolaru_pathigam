@@ -20,9 +20,8 @@ class SirapuPage extends StatefulWidget {
 class _SirapuPageState extends State<SirapuPage> {
   late YoutubePlayerController _controller;
   Color _appBarColor = Colors.white;
-  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light);
+ SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.white);
+
   late ScrollController _scrollController;
 
   @override
@@ -43,15 +42,39 @@ class _SirapuPageState extends State<SirapuPage> {
           _appBarColor = _scrollController.offset > 300
               ? const Color.fromARGB(255, 3, 19, 48)
               : Colors.white;
-        });
-        if (_scrollController.offset > 320) {
-          //systemUiOverlayStyle = SystemUiOverlayStyle.dark;
-           systemUiOverlayStyle = SystemUi().getUiStyles(Colors.transparent, Brightness.dark, Colors.white);
-        } else {
-          //systemUiOverlayStyle = SystemUiOverlayStyle.light;
-          systemUiOverlayStyle = SystemUi().getUiStyles(Colors.transparent, Brightness.light, Colors.white);
+        // systemUiOverlayStyle = _scrollController.offset > 300 ? SystemUi().getUiStyles(Colors.transparent, Brightness.dark, Colors.white)
+        // : SystemUi().getUiStyles(Colors.transparent, Brightness.light, Colors.white);
 
-        }
+      if (_scrollController.offset > 300) {
+            // SystemUiOverlayStyle(
+            //   statusBarColor: Colors.transparent,
+            //   statusBarIconBrightness: Brightness.dark,
+            //   systemNavigationBarColor:  Colors.white,
+            // ),
+            systemUiOverlayStyle = SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.white);
+          } else {
+            //  systemUiOverlayStyle = SystemUiOverlayStyle.light;
+            systemUiOverlayStyle = SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.white);
+          }
+    //     if (_scrollController.offset > 300) {
+    //      // systemUiOverlayStyle = SystemUiOverlayStyle.dark;
+    //      systemUiOverlayStyle= SystemUiOverlayStyle(
+    //     statusBarColor:Colors.transparent,
+    //     statusBarIconBrightness: Brightness.dark,
+    //     systemNavigationBarColor:  Colors.white,
+    // );
+    //        //systemUiOverlayStyle = SystemUi().getUiStyles(Colors.transparent, Brightness.dark, Colors.white);
+    //     } else {
+    //     //  systemUiOverlayStyle = SystemUiOverlayStyle.light;
+    //     systemUiOverlayStyle= SystemUiOverlayStyle(
+    //     statusBarColor:Colors.transparent,
+    //     statusBarIconBrightness: Brightness.light,
+    //     systemNavigationBarColor:  Colors.white,
+    // );
+    //      // systemUiOverlayStyle = SystemUi().getUiStyles(Colors.transparent, Brightness.light, Colors.white);
+
+    //     }
+        });
       });
   }
 
@@ -59,6 +82,7 @@ class _SirapuPageState extends State<SirapuPage> {
   void dispose() {
     super.dispose();
     _scrollController.dispose();
+    _controller.dispose();
   }
 
   @override

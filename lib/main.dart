@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kolaru_pathigam/screens/home_page.dart';
 import 'package:kolaru_pathigam/screens/splash_screen.dart';
 import 'package:kolaru_pathigam/widgets/system_ui.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Splashscreen(),
+      home: HomePage(),
 
       // theme: AppTheme().getTheme(context),
       // themeMode: ThemeMode.light,

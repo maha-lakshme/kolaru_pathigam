@@ -108,15 +108,18 @@ class _PadalPageState extends State<PadalPage> {
 
   AudioPlayer audioPlayer = AudioPlayer();
   void _handleOnPressed(int index) async {
-    print("Selected index" + index.toString());
-        print("Audio player state--- " + audioPlayer.state.toString());
+    print("Selected index ---  " + index.toString());
+  print("Audio player state---    " + audioPlayer.state.toString());
+
     if (selectedIndex == index) {
       if (audioPlayer.state == PlayerState.playing) {
         print("playing");
         await audioPlayer.pause();
-      } else {
+      } else if(audioPlayer.state == PlayerState.paused) {
         print("resume");
         await audioPlayer.resume();
+      } else if(audioPlayer.state == PlayerState.completed){
+         await audioPlayer.play(AssetSource(padalListItems[index].padalAssetName));
       }
     } else {
       print("play next song");
@@ -146,17 +149,16 @@ class _PadalPageState extends State<PadalPage> {
               : Colors.white;
 
           if (_scrollController.offset > 300) {
-            // SystemUiOverlayStyle(
-            //   statusBarColor: Colors.transparent,
-            //   statusBarIconBrightness: Brightness.dark,
-            //   systemNavigationBarColor:  Colors.white,
-            // ),
-            systemUiOverlayStyle = SystemUi()
-                .getUiStyles(Colors.transparent, Brightness.dark, Colors.white);
+            // systemUiOverlayStyle = SystemUi()
+            //     .getUiStyles(Colors.transparent, Brightness.dark, Colors.white);
+
+           systemUiOverlayStyle = SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.white);
+
           } else {
-            //  systemUiOverlayStyle = SystemUiOverlayStyle.light;
-            systemUiOverlayStyle = SystemUi().getUiStyles(
-                Colors.transparent, Brightness.light, Colors.white);
+            // systemUiOverlayStyle = SystemUi().getUiStyles(
+            //     Colors.transparent, Brightness.light, Colors.white);
+           systemUiOverlayStyle = SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.white);
+
           }
         });
       });

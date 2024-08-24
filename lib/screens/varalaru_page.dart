@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +14,9 @@ class Varalaru_page extends StatefulWidget {
 }
 
 class _Varalaru_pageState extends State<Varalaru_page> {
+  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light);
   int _current = 0;
   List<String> images = [
     'lib/images/pandiya_king.jpg',
@@ -56,7 +60,7 @@ class _Varalaru_pageState extends State<Varalaru_page> {
                   style: GoogleFonts.muktaMalar(
                       textStyle: TextStyle(
                           color: Colors.black,
-                         fontSize: 20,
+                          fontSize: 20,
                           fontWeight: FontWeight.w600)),
                 ),
                 elevation: 3,
@@ -123,7 +127,7 @@ class _Varalaru_pageState extends State<Varalaru_page> {
                     borderRadius: BorderRadius.circular(20)),
                 child: Text(lines[_current],
                     textAlign: TextAlign.left,
-                    style: GoogleFonts.muktaMalar(fontSize:16)),
+                    style: GoogleFonts.muktaMalar(fontSize: 16)),
               ),
             )
           ],
