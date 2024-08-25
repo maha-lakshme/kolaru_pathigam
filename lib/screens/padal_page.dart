@@ -9,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kolaru_pathigam/models/padal.dart';
 import 'package:kolaru_pathigam/widgets/custom_app_bar.dart';
 import 'package:kolaru_pathigam/widgets/custom_sliverappbar.dart';
-import 'package:kolaru_pathigam/widgets/system_ui.dart';
 
 class PadalPage extends StatefulWidget {
   const PadalPage({super.key});
@@ -18,17 +17,16 @@ class PadalPage extends StatefulWidget {
   State<PadalPage> createState() => _PadalPageState();
 }
 
-class _PadalPageState extends State<PadalPage> {
-  final player = AudioPlayer();
-  bool IsPlayerOn = false;
+class _PadalPageState extends State<PadalPage> with WidgetsBindingObserver {
+  AudioPlayer audioPlayer = AudioPlayer();
   int? selectedIndex;
   late ScrollController _scrollController;
   Color _appBarColor = Colors.white;
-  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+  SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
   );
-  @override
+
   final ButtonStyle flatButtonStyle = TextButton.styleFrom(
     minimumSize: Size(88, 36),
     padding: EdgeInsets.symmetric(horizontal: 2.0),
@@ -106,41 +104,29 @@ class _PadalPageState extends State<PadalPage> {
             "தேன் நிறைந்த பூங்காக்களைக் கொண்டதும், கரும்பும் (ஆலை), விளைகிற செந்நெல்லும் நிறைந்துள்ளதும், பொன் போல் ஒளிர்வதும், நான்முகன் (வழிபட்ட) காரணத்தால் பிரமாபுரம் என்ற ஊரில் தோன்றி அபரஞானம் பரஞானம் ஆகிய இரு வகை ஞானங்களையும் உணர்ந்த ஞானசம்பந்தனாகிய யான், தாமே வந்து சம்பவிக்கும் நவக்கிரகங்கள், நாள் நட்சத்திரம், போன்றன எல்லாம் அடியவரை வந்து வருத்தாதவாறு பாடிய இப்பதிகத்தை ஓதும் அடியவர்கள் வானுலகில் அரசு புரிவர். இது நமது ஆணை.")
   ];
 
-  AudioPlayer audioPlayer = AudioPlayer();
   void _handleOnPressed(int index) async {
-    print("Selected index ---  " + index.toString());
-  print("Audio player state---    " + audioPlayer.state.toString());
-
     if (selectedIndex == index) {
       if (audioPlayer.state == PlayerState.playing) {
-        print("playing");
         await audioPlayer.pause();
-      } else if(audioPlayer.state == PlayerState.paused) {
-        print("resume");
+      } else if (audioPlayer.state == PlayerState.paused) {
         await audioPlayer.resume();
-      } else if(audioPlayer.state == PlayerState.completed){
-         await audioPlayer.play(AssetSource(padalListItems[index].padalAssetName));
+      } else if (audioPlayer.state == PlayerState.completed ||
+          audioPlayer.state == PlayerState.stopped) {
+        await audioPlayer
+            .play(AssetSource(padalListItems[index].padalAssetName));
       }
     } else {
-      print("play next song");
       selectedIndex = index;
       await audioPlayer.play(AssetSource(padalListItems[index].padalAssetName));
     }
-    setState(() {
-      // Set all items to not playing
-      // for (var item in padalListItems) {
-      //   item.isPlaying = false;
-      // }
-      // // Set the pressed item to playing or paused based on its current state
-      // padalListItems[index].isPlaying = !padalListItems[index].isPlaying;
-      //       print("--Setting state---"+padalListItems[index].isPlaying.toString());
-    });
+
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-
+    WidgetsBinding.instance.addObserver(this);
     _scrollController = ScrollController()
       ..addListener(() {
         setState(() {
@@ -149,32 +135,39 @@ class _PadalPageState extends State<PadalPage> {
               : Colors.white;
 
           if (_scrollController.offset > 300) {
-            // systemUiOverlayStyle = SystemUi()
-            //     .getUiStyles(Colors.transparent, Brightness.dark, Colors.white);
-
-           systemUiOverlayStyle = SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.white);
-
+            systemUiOverlayStyle = SystemUiOverlayStyle.dark.copyWith(
+                statusBarColor: Colors.transparent,
+                systemNavigationBarColor: Colors.white);
           } else {
-            // systemUiOverlayStyle = SystemUi().getUiStyles(
-            //     Colors.transparent, Brightness.light, Colors.white);
-           systemUiOverlayStyle = SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.white);
-
+            systemUiOverlayStyle = SystemUiOverlayStyle.light.copyWith(
+                statusBarColor: Colors.transparent,
+                systemNavigationBarColor: Colors.white);
           }
         });
       });
     audioPlayer.onPlayerComplete.listen((event) {
       setState(() {
-        audioPlayer.state=PlayerState.completed;
+        audioPlayer.state = PlayerState.completed;
       });
-      print("Song finished");
     });
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _scrollController.dispose();
     audioPlayer.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      setState(() {
+        audioPlayer.stop();
+        audioPlayer.state = PlayerState.completed;
+      });
+    }
   }
 
   Widget build(BuildContext context) {
@@ -199,13 +192,9 @@ class _PadalPageState extends State<PadalPage> {
                   child: Text(
                     "திருஞான சம்பந்தர் அருளிய கோளறு திருப்பதிகம்",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.muktaMalar(fontSize:17,fontWeight:FontWeight.w700),
-                  //   style: TextStyle(
-                  //       color: Colors.black,
-                  //       fontFamily: GoogleFonts.muktaMalar.toString(),
-                  //       fontSize: 18,
-                  //       fontWeight: FontWeight.w700),
-                   ),
+                    style: GoogleFonts.muktaMalar(
+                        fontSize: 17, fontWeight: FontWeight.w700),
+                  ),
                 )),
               ),
             ],
@@ -218,7 +207,6 @@ class _PadalPageState extends State<PadalPage> {
             child: Column(
               children: [
                 Card(
-                  //color: Colors.white,
                   child: Column(
                     children: [
                       Padding(
@@ -264,9 +252,6 @@ class _PadalPageState extends State<PadalPage> {
                     ],
                   ),
                 ),
-                // Divider(
-                //   color: Colors.blue,
-                // )
               ],
             ),
           );
@@ -276,9 +261,9 @@ class _PadalPageState extends State<PadalPage> {
                 child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "திருச்சிற்றம்பலம்",
+            "~~~ திருச்சிற்றம்பலம் ~~~",
             textAlign: TextAlign.center,
-            style: GoogleFonts.muktaMalar(fontSize: 20),
+            style: GoogleFonts.muktaMalar(fontSize: 20,fontWeight:FontWeight.w600),
           ),
         )))
       ],
@@ -295,10 +280,8 @@ class _PadalPageState extends State<PadalPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text("விளக்கம்",
+                const Text("விளக்கம்",
                     style: TextStyle(
-                        //decoration: TextDecoration.underline,
-                        //decorationStyle: TextDecorationStyle.wavy,
                         color: Colors.deepOrange,
                         fontSize: 15,
                         fontWeight: FontWeight.bold)),
