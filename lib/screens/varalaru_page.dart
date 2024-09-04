@@ -1,19 +1,17 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Varalaru_page extends StatefulWidget {
-  const Varalaru_page({super.key});
+class VaralaruPage extends StatefulWidget {
+  const VaralaruPage({super.key});
 
   @override
-  State<Varalaru_page> createState() => _Varalaru_pageState();
+  State<VaralaruPage> createState() => _VaralaruPageState();
 }
 
-class _Varalaru_pageState extends State<Varalaru_page> {
+class _VaralaruPageState extends State<VaralaruPage> {
   int _current = 0;
   List<String> images = [
     'lib/images/pandiya_king.jpg',
@@ -30,11 +28,11 @@ class _Varalaru_pageState extends State<Varalaru_page> {
   List<Widget> generateImagesTiles() {
     return images
         .map((element) => ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
               child: Image.asset(
                 element,
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.circular(15.0),
             ))
         .toList();
   }
@@ -68,7 +66,7 @@ class _Varalaru_pageState extends State<Varalaru_page> {
               children: [
                 // CarouselSlider for Images
                 Container(
-                  padding: EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 15),
                   child: CarouselSlider(
                     items: generateImagesTiles(),
                     carouselController: buttonCarouselController,
@@ -95,11 +93,11 @@ class _Varalaru_pageState extends State<Varalaru_page> {
                   children: [
                     MaterialButton(
                       onPressed: () => buttonCarouselController.previousPage(),
-                      child: Icon(Icons.arrow_back_ios_new_rounded),
+                      child: const Icon(Icons.arrow_back_ios_new_rounded),
                     ),
                     MaterialButton(
                       onPressed: () => buttonCarouselController.nextPage(),
-                      child: Icon(Icons.arrow_forward_ios_rounded),
+                      child: const Icon(Icons.arrow_forward_ios_rounded),
                     )
                   ],
                 ),

@@ -1,13 +1,8 @@
-import 'dart:ui';
-
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kolaru_pathigam/models/padal.dart';
-import 'package:kolaru_pathigam/widgets/custom_app_bar.dart';
 import 'package:kolaru_pathigam/widgets/custom_sliverappbar.dart';
 
 class PadalPage extends StatefulWidget {
@@ -22,14 +17,15 @@ class _PadalPageState extends State<PadalPage> with WidgetsBindingObserver {
   int? selectedIndex;
   late ScrollController _scrollController;
   Color _appBarColor = Colors.white;
-  SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.light,
-  );
+  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle.light
+      .copyWith(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark);
 
   final ButtonStyle flatButtonStyle = TextButton.styleFrom(
-    minimumSize: Size(88, 36),
-    padding: EdgeInsets.symmetric(horizontal: 2.0),
+    minimumSize: const Size(88, 36),
+    padding: const EdgeInsets.symmetric(horizontal: 2.0),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(2.0)),
     ),
@@ -137,11 +133,13 @@ class _PadalPageState extends State<PadalPage> with WidgetsBindingObserver {
           if (_scrollController.offset > 300) {
             systemUiOverlayStyle = SystemUiOverlayStyle.dark.copyWith(
                 statusBarColor: Colors.transparent,
-                systemNavigationBarColor: Colors.white);
+                systemNavigationBarColor: Colors.white,
+                 systemNavigationBarIconBrightness: Brightness.dark);
           } else {
             systemUiOverlayStyle = SystemUiOverlayStyle.light.copyWith(
                 statusBarColor: Colors.transparent,
-                systemNavigationBarColor: Colors.white);
+                systemNavigationBarColor: Colors.white,
+                 systemNavigationBarIconBrightness: Brightness.dark);
           }
         });
       });
@@ -170,6 +168,7 @@ class _PadalPageState extends State<PadalPage> with WidgetsBindingObserver {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       controller: _scrollController,
@@ -177,7 +176,7 @@ class _PadalPageState extends State<PadalPage> with WidgetsBindingObserver {
         CustomSliverAppBar(
           title: "கோளறு திருப்பதிகம்",
           appBarColor: _appBarColor,
-          imageAssetPath: 'lib/images/shiva5.jpg',
+          imageAssetPath: 'lib/images/shiva.jpg',
           systemStyle: systemUiOverlayStyle,
         ),
         SliverToBoxAdapter(
@@ -185,17 +184,15 @@ class _PadalPageState extends State<PadalPage> with WidgetsBindingObserver {
             children: [
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Container(
-                    //color: Colors.lightGreen,
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "திருஞான சம்பந்தர் அருளிய கோளறு திருப்பதிகம்",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.muktaMalar(
-                        fontSize: 17, fontWeight: FontWeight.w700),
-                  ),
-                )),
+                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                "திருஞான சம்பந்தர் அருளிய கோளறு திருப்பதிகம்",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.muktaMalar(
+                    fontSize: 17, fontWeight: FontWeight.w700),
+                                  ),
+                                ),
               ),
             ],
           ),
@@ -218,14 +215,14 @@ class _PadalPageState extends State<PadalPage> with WidgetsBindingObserver {
                         ),
                       ),
                       Container(
-                          padding: EdgeInsets.fromLTRB(8, 2, 8, 0),
+                          padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton.icon(
                                   style: flatButtonStyle,
                                   onPressed: () => showDetail(index),
-                                  icon: Icon(Icons.article, size: 20),
+                                  icon: const Icon(Icons.article, size: 20),
                                   label: Text(
                                     "விளக்கம்",
                                     style: GoogleFonts.muktaVaani(
@@ -296,9 +293,9 @@ class _PadalPageState extends State<PadalPage> with WidgetsBindingObserver {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "திருச்சிற்றம்பலம்",
+                    "~~~ திருச்சிற்றம்பலம் ~~~",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.muktaMalar(fontSize: 20),
+                    style: GoogleFonts.muktaMalar(fontSize: 18, fontWeight:FontWeight.w600),
                   ),
                 ))
               ],

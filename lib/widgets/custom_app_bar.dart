@@ -16,7 +16,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
  
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return AppBar(
       centerTitle: true,
       title: Text(title,style: GoogleFonts.muktaMalar(

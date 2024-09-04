@@ -1,16 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kolaru_pathigam/widgets/custom_app_bar.dart';
 import 'package:kolaru_pathigam/widgets/custom_sliverappbar.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class SirapuPage extends StatefulWidget {
-  SirapuPage({super.key});
+  const SirapuPage({super.key});
 
   @override
   State<SirapuPage> createState() => _SirapuPageState();
@@ -22,7 +19,8 @@ class _SirapuPageState extends State<SirapuPage> {
   SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle.light
       .copyWith(
           statusBarColor: Colors.transparent,
-          systemNavigationBarColor: Colors.white);
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark);
   late ScrollController _scrollController;
 
   @override
@@ -47,11 +45,13 @@ class _SirapuPageState extends State<SirapuPage> {
           if (_scrollController.offset > 300) {
             systemUiOverlayStyle = SystemUiOverlayStyle.dark.copyWith(
                 statusBarColor: Colors.transparent,
-                systemNavigationBarColor: Colors.white);
+                systemNavigationBarColor: Colors.white,
+                 systemNavigationBarIconBrightness: Brightness.dark);
           } else {
             systemUiOverlayStyle = SystemUiOverlayStyle.light.copyWith(
                 statusBarColor: Colors.transparent,
-                systemNavigationBarColor: Colors.white);
+                systemNavigationBarColor: Colors.white,
+                 systemNavigationBarIconBrightness: Brightness.dark);
           }
         });
       });
