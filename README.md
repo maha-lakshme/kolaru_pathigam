@@ -39,7 +39,9 @@
 Here are some screenshots of the app in action:
 
 <div align="center">
-  <img src="screenshots/screenshot1.png" alt="Home Screen - Verses Display" width="200px"/>
-  <img src="screenshots/screenshot2.png" alt="Audio Recitation Screen" width="200px"/>
-  <img src="screenshots/screenshot3.png" alt="Offline Mode Screen" width="200px"/>
+  <img src="screenshots/screen1.png" alt="Home Screen - Verses Display" width="200px"/>
+  <img src="screenshots/screen2.png" alt="Details" width="200px"/>
+  <img src="screenshots/screen3.png" alt="History Screen" width="200px"/>
+  <img src="screenshots/screen4.png" alt="Benefits Screen" width="200px"/>
+
 </div>
