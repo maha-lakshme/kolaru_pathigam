@@ -45,3 +45,9 @@ Here are some screenshots of the app in action:
   <img src="screenshots/screen4.png" alt="Benefits Screen" width="200px"/>
 
 </div>
+
+- ## License
+All Rights Reserved. This project and its source code may not be reproduced, distributed, or used in any form without explicit written permission from the author.
+
+- ## Contact
+Developer: Mahalakshmi Email: maha21.kanagaraj@gmail.com Google Play Store: Kolaru Pathigam
